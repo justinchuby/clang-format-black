@@ -1,7 +1,7 @@
 # Use clang-format -dump-config -style=google to get the base configuration
 ---
 Language: Cpp
-AccessModifierOffset: -2
+AccessModifierOffset: -2  # MARK: Adjustable
 AlignAfterOpenBracket: BlockIndent
 AlignArrayOfStructures: Right  # MARK: Adjustable
 AlignConsecutiveAssignments:
@@ -31,7 +31,7 @@ AlignConsecutiveMacros:
 AlignEscapedNewlines: Left
 AlignOperands: DontAlign
 AlignTrailingComments:
-  Kind: Never
+  Kind: Never  # MARK: Adjustable
   OverEmptyLines: 0
 AllowAllArgumentsOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
@@ -191,14 +191,14 @@ RawStringFormats:
     CanonicalDelimiter: pb
     BasedOnStyle: google
 ReferenceAlignment: Pointer
-ReflowComments: true
+ReflowComments: false  # MARK: Adjustable
 RemoveBracesLLVM: false
 RemoveSemicolon: false
 RequiresClausePosition: OwnLine
 RequiresExpressionIndentation: OuterScope
 SeparateDefinitionBlocks: Leave
 ShortNamespaceLines: 1
-SortIncludes: CaseSensitive
+SortIncludes: Never  # MARK: Adjustable
 SortJavaStaticImport: Before
 SortUsingDeclarations: LexicographicNumeric
 SpaceAfterCStyleCast: false
