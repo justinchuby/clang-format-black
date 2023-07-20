@@ -3,8 +3,7 @@
 """Create clang-format config that mimics Python's black formatter style."""
 import argparse
 
-CONFIG_TEMPLATE = r"""\
----
+CONFIG_TEMPLATE = r"""---
 Language: Cpp
 AccessModifierOffset: {access_modifier_offset}
 AlignAfterOpenBracket: BlockIndent
@@ -253,8 +252,7 @@ WhitespaceSensitiveMacros:
   - CF_SWIFT_NAME
   - NS_SWIFT_NAME
   - PP_STRINGIZE
-  - STRINGIZE
-"""
+  - STRINGIZE"""
 
 
 def main(args):
