@@ -1,9 +1,13 @@
-# Use clang-format -dump-config -style=google to get the base configuration
----
+#!/usr/bin/env python
+
+"""Create clang-format config that mimics Python's black formatter style."""
+import argparse
+
+CONFIG_TEMPLATE = r"""---
 Language: Cpp
-AccessModifierOffset: -2  # MARK: Adjustable
+AccessModifierOffset: {access_modifier_offset}
 AlignAfterOpenBracket: BlockIndent
-AlignArrayOfStructures: None  # MARK: Adjustable
+AlignArrayOfStructures: {align_array_of_structures}
 AlignConsecutiveAssignments:
   Enabled: false
   AcrossEmptyLines: false
@@ -31,7 +35,7 @@ AlignConsecutiveMacros:
 AlignEscapedNewlines: Left
 AlignOperands: DontAlign
 AlignTrailingComments:
-  Kind: Never  # MARK: Adjustable
+  Kind: {align_trailing_comments}
   OverEmptyLines: 0
 AllowAllArgumentsOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
@@ -78,7 +82,7 @@ BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeColon
 BreakInheritanceList: BeforeColon
 BreakStringLiterals: false
-ColumnLimit: 88 # MARK: Adjustable
+ColumnLimit: {column_limit}
 CommentPragmas: "^ IWYU pragma:"
 CompactNamespaces: false
 ConstructorInitializerIndentWidth: 4
@@ -122,7 +126,7 @@ IndentExternBlock: AfterExternBlock
 IndentGotoLabels: true
 IndentPPDirectives: None
 IndentRequiresClause: true
-IndentWidth: 2  # MARK: Adjustable
+IndentWidth: {indent_width}
 IndentWrappedFunctionNames: false
 InsertBraces: false
 InsertNewlineAtEOF: false
@@ -191,14 +195,14 @@ RawStringFormats:
     CanonicalDelimiter: pb
     BasedOnStyle: google
 ReferenceAlignment: Pointer
-ReflowComments: false  # MARK: Adjustable
+ReflowComments: {reflow_comments}
 RemoveBracesLLVM: false
 RemoveSemicolon: false
 RequiresClausePosition: OwnLine
 RequiresExpressionIndentation: OuterScope
 SeparateDefinitionBlocks: Leave
 ShortNamespaceLines: 1
-SortIncludes: Never  # MARK: Adjustable
+SortIncludes: {sort_includes}
 SortJavaStaticImport: Before
 SortUsingDeclarations: LexicographicNumeric
 SpaceAfterCStyleCast: false
@@ -248,4 +252,80 @@ WhitespaceSensitiveMacros:
   - CF_SWIFT_NAME
   - NS_SWIFT_NAME
   - PP_STRINGIZE
-  - STRINGIZE
+  - STRINGIZE"""
+
+
+def main(args):
+    """Main function"""
+    config = CONFIG_TEMPLATE.format(
+        access_modifier_offset=args.access_modifier_offset,
+        align_array_of_structures="Always"
+        if args.align_array_of_structures
+        else "Never",
+        align_trailing_comments="Always" if args.align_trailing_comments else "Never",
+        column_limit=args.line_length,
+        indent_width=args.indent_width,
+        reflow_comments="true" if args.reflow_comments else "false",
+        sort_includes="CaseSensitive" if args.sort_includes else "Never",
+    )
+    print(config)
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--line-length",
+        "--column-limit",  # alias
+        type=int,
+        help="How many characters per line to allow. [default: 88]",
+        default=88,
+        required=False,
+    )
+    parser.add_argument(
+        "--indent-width",
+        type=int,
+        help="Indent width. [default: 4]",
+        default=4,
+        required=False,
+    )
+    # NOTE: We turned some of the options into boolean flags by making
+    # an opinionated choice for the default value. This is to make the
+    # script easier to use.
+    parser.add_argument(
+        "--align-array-of-structures",
+        action="store_true",
+        help="Align array of structures.",
+        default=False,
+        required=False,
+    )
+    parser.add_argument(
+        "--access-modifier-offset",
+        type=int,
+        help="Indent width for access modifiers. [default: -2]",
+        default=-2,
+        required=False,
+    )
+    parser.add_argument(
+        "--align-trailing-comments",
+        action="store_true",
+        help="Align trailing comments.",
+        default=False,
+        required=False,
+    )
+    parser.add_argument(
+        "--reflow-comments",
+        action="store_true",
+        help="Reflow comments.",
+        default=False,
+        required=False,
+    )
+    parser.add_argument(
+        "--sort-includes",
+        action="store_true",
+        help="Sort includes.",
+        default=False,
+        required=False,
+    )
+
+    args = parser.parse_args()
+    main(args)
