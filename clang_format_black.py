@@ -85,8 +85,8 @@ BreakStringLiterals: false
 ColumnLimit: {column_limit}
 CommentPragmas: "^ IWYU pragma:"
 CompactNamespaces: false
-ConstructorInitializerIndentWidth: 4
-ContinuationIndentWidth: 4
+ConstructorInitializerIndentWidth: {indent_width}
+ContinuationIndentWidth: {indent_width}
 Cpp11BracedListStyle: true
 DerivePointerAlignment: false
 DisableFormat: false
