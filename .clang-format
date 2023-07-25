@@ -78,11 +78,11 @@ BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeColon
 BreakInheritanceList: BeforeColon
 BreakStringLiterals: false
-ColumnLimit: 88 # MARK: Adjustable
+ColumnLimit: 88  # MARK: Adjustable
 CommentPragmas: "^ IWYU pragma:"
 CompactNamespaces: false
-ConstructorInitializerIndentWidth: 4
-ContinuationIndentWidth: 4
+ConstructorInitializerIndentWidth: 4  # MARK: Adjustable
+ContinuationIndentWidth: 4  # MARK: Adjustable
 Cpp11BracedListStyle: true
 DerivePointerAlignment: false
 DisableFormat: false
@@ -122,7 +122,7 @@ IndentExternBlock: AfterExternBlock
 IndentGotoLabels: true
 IndentPPDirectives: None
 IndentRequiresClause: true
-IndentWidth: 2  # MARK: Adjustable
+IndentWidth: 4  # MARK: Adjustable
 IndentWrappedFunctionNames: false
 InsertBraces: false
 InsertNewlineAtEOF: false
