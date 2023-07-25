@@ -37,7 +37,7 @@ AlignOperands: DontAlign
 AlignTrailingComments:
   Kind: {align_trailing_comments}
   OverEmptyLines: 0
-AllowAllArgumentsOnNextLine: false
+AllowAllArgumentsOnNextLine: true
 AllowAllParametersOfDeclarationOnNextLine: true
 AllowShortBlocksOnASingleLine: Never
 AllowShortCaseLabelsOnASingleLine: false
